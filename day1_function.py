@@ -28,3 +28,31 @@
 
 # slope =  (y2-y1)/(x2-x1)
 # print (slope)
+
+# import matplotlib.pyplot as plt
+#* import seaborn as sns
+#* prices = [10,20,30,40]
+#* total= 0
+# for p in prices:
+    # total+=p
+# print(total)
+#*for p in prices:
+#*   mean  =  total/len(prices)
+#*print(mean)
+
+# mileage =  [0, 50000, 100000, 150000]
+# price = [20000, 18000, 15000, 12000]
+
+# plt.scatter(mileage, price)
+# sns.regplot(x=mileage, y=price)
+# plt.ylabel("prices")
+# plt.xlabel("mileage")
+# plt.show()
+###################################day 02@@@@@@@@@@@@@@@
+###* build estimationPrice
+teta0 = 20000 ## 
+teta1 = -0.05 ##*slop
+def estimatedprice(mileage):
+    return (teta0 + teta1*mileage)
+
+print(estimatedprice(500000))
