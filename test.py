@@ -132,11 +132,11 @@ mill_m = mill_m.mean()
 price_m =  price_m.mean()
 print(mill_m, price_m)
 ##* compute x- xmean how far is each X from the average of x ?
-meanx= []
-meany = []
-for i, j in zip (mil ,price):
-    meanx.append(i-mill_m)
-    meany.append(j-price_m)
+# meanx= []
+# meany = []
+# for i, j in zip (mil ,price):
+#     meanx.append(i-mill_m)
+#     meany.append(j-price_m)
 # print(meanx)
 # print(meany)
 up = 0
