@@ -1,13 +1,13 @@
 import sys , os
 import numpy as np 
-
+import matplotlib.pyplot as plt
 def execute(km):
 
-    theta0 = 0
-    theta1 = 0
+    theta0 = 100000
+    theta1 = -0.5
     price  = theta0 + km*theta1
-    print(f"price for car of {km} km : {price}")
-
+    # print(f"price for car of {km} km : {price}")
+    # plt.plot()
 
 def main():
     try:
