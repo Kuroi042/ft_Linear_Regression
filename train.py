@@ -16,11 +16,13 @@ class params:
         self.theta0 = 0 #*intercept
         self.theta1 = 0 #*slop 
         self.cost = 0
+        self.costarray= []
 
 #* tmpθ0 = learningRate ∗ 1/m  (estimatePrice(mileage[i]) − price[i])
 #* tmpθ1 = learningRate ∗ 1/m (estimatePrice(mileage[i]) − price[i]) ∗ mileage[i]
     def gredient_descent(self):
         Lr  =  0.01
+        costarray = []
         self.theta0 = float(self.theta0)
         self.theta1 = float(self.theta1)
         km_min = self.df["km"].min()
@@ -40,7 +42,13 @@ class params:
             self.theta0 =  temptheta0
             self.theta1 = temptheta1
             self.cost = (sum_error**2).sum() / (2 * m)
+            self.costarray.append(self.cost)
+            
             print("iteration" , i)
+        print("0",self.costarray[0])
+        print("1",self.costarray[0])
+        print("9999",self.costarray[9999])
+
         with open("weights.json", "w") as json_file:
             json.dump({
                 "theta0": self.theta0,
@@ -54,7 +62,7 @@ class params:
     def plotregree(self):
         newprice = self.theta0 + self.theta1 * self.df["km_scaled"]
 
-        fig, ax = plt.subplots(1, 2, figsize=(12, 5))
+        fig, ax = plt.subplots(1, 3, figsize=(12, 5))
 
         # Plot 1: Original data
         ax[0].scatter(self.df["km"], self.df["price"], color="blue")
@@ -78,10 +86,18 @@ class params:
             label="Regression line"
         )
 
+
+
         ax[1].set_title("Linear Regression")
         ax[1].set_xlabel("km")
         ax[1].set_ylabel("price")
         ax[1].legend()
+        
+        ax[2].plot(range(len(self.costarray)), self.costarray)     
+        ax[2].set_xlabel("Iterations")
+        ax[2].set_ylabel("Cost")
+        ax[2].set_title("Cost vs Iterations")  
+        ax[2].yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'{x:,.0f}'))
 
         plt.tight_layout()
         plt.show()
@@ -90,7 +106,7 @@ class params:
 def execute(algo):
     algo.gredient_descent()
 # bonus
-    # algo.plotregree()
+    algo.plotregree()
 def main():
     try:
         assert len(sys.argv) == 2 , "argument are bad"
