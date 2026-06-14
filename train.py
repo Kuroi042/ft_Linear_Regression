@@ -40,6 +40,7 @@ class params:
             self.theta0 =  temptheta0
             self.theta1 = temptheta1
             self.cost = (sum_error**2).sum() / (2 * m)
+            print("iteration" , i)
         with open("weights.json", "w") as json_file:
             json.dump({
                 "theta0": self.theta0,
@@ -49,33 +50,47 @@ class params:
             }, json_file, indent=4)
 
     
-    
+
     def plotregree(self):
-        newprice = []
-        newprice =  self.theta0 +  self.theta1*self.df["km_scaled"]
-        plt.plot(self.df["km_scaled"],newprice, linestyle='--')
-        plt.ylabel("predicted price")
-        plt.xlabel("km")
-        plt.legend("")
+        newprice = self.theta0 + self.theta1 * self.df["km_scaled"]
 
-        plt.show()
+        fig, ax = plt.subplots(1, 2, figsize=(12, 5))
 
+        # Plot 1: Original data
+        ax[0].scatter(self.df["km"], self.df["price"], color="blue")
+        ax[0].set_title("Original Data")
+        ax[0].set_xlabel("km")
+        ax[0].set_ylabel("price")
 
-    def plotscatter(self):
-        plt.scatter(
-
-            self.df["km"], self.df["newprice"], 
+        # Plot 2: Data + regression line
+        ax[1].scatter(
+            self.df["km"],
+            self.df["price"],
+            color="blue",
+            label="Actual data"
         )
-        # 4. Display the window
-        plt.ylabel("price")
-        plt.xlabel("km")
+
+        ax[1].plot(
+            self.df["km"],
+            newprice,
+            color="red",
+            linewidth=2,
+            label="Regression line"
+        )
+
+        ax[1].set_title("Linear Regression")
+        ax[1].set_xlabel("km")
+        ax[1].set_ylabel("price")
+        ax[1].legend()
+
+        plt.tight_layout()
         plt.show()
 
 
 def execute(algo):
     algo.gredient_descent()
-    # algo.plotscatter()
-    algo.plotregree()
+# bonus
+    # algo.plotregree()
 def main():
     try:
         assert len(sys.argv) == 2 , "argument are bad"
