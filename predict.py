@@ -2,14 +2,15 @@ import sys , os
 import numpy as np 
 import matplotlib.pyplot as plt
 import json
+from pathlib import Path
 file_path = os.path.join('Weights.json')
 
-def execute(km):
+def execute(km, path):
     try:
         with open('weights.json' ,'r') as file:
             data =  json.load(file)
     except:
-        print(f"error '{file_path}' not found ")
+        print(f"error '{path}' not found ")
         sys.exit(1)
     theta0 =  data['theta0']
     theta1 =  data['theta1']
@@ -30,6 +31,10 @@ def main():
         print(f"AssertionError: {e}")
         sys.exit(1)
     mileage =  int(sys.argv[1])
-    execute(mileage)
+    weight =  Path("weights.json")
+    if  not weight.is_file() :
+        print("File does not exist!")
+        sys.exit(1)
+    execute(mileage, weight)
 if __name__ == "__main__":
     main()
