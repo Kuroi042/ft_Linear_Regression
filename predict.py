@@ -1,9 +1,6 @@
 import sys
-import os
-import matplotlib.pyplot as plt
 import json
 from pathlib import Path
-file_path = os.path.join('Weights.json')
 
 
 def execute(km, path):
@@ -19,21 +16,15 @@ def execute(km, path):
 
     price = theta0 + km_scaled*theta1
     print(f"price for car of {km} km : {price}")
-    plt.plot(price)
 
 
 def main():
-    try:
-        assert len(sys.argv) == 2, "argument are bad"
-    except AssertionError as e:
-        print(f"AssertionError: {e}")
-        sys.exit(1)
-    mileage = int(sys.argv[1])
+    km = float(input("Enter mileage: "))
     weight = Path("weights.json")
     if not weight.is_file():
         print("File does not exist!")
         sys.exit(1)
-    execute(mileage, weight)
+    execute(km, weight)
 
 
 if __name__ == "__main__":
